@@ -3,7 +3,9 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import ActiveDetector from '../.'
 
-const ad = new ActiveDetector()
+const ad = new ActiveDetector({
+  inactiveThresh: 2000,
+})
 
 const logActive = () => {
   console.log('[state: active]')

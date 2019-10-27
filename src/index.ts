@@ -13,7 +13,6 @@ const USER_EVENTS = [
   'keydown',
   'resize',
 ] as const
-// TODO: other devices
 
 interface ActiveDetectorOptions {
   /**
@@ -28,7 +27,7 @@ export interface ActiveRange {
 }
 
 const DEFAULT_OPTIONS: ActiveDetectorOptions = {
-  inactiveThresh: 2000,
+  inactiveThresh: 5000,
 }
 
 export default class ActiveDetector {
