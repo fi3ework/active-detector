@@ -27,7 +27,7 @@ export interface ActiveRange {
 }
 
 const DEFAULT_OPTIONS: ActiveDetectorOptions = {
-  inactiveThresh: 5000,
+  inactiveThresh: 30000,
 }
 
 export default class ActiveDetector {
@@ -67,7 +67,7 @@ export default class ActiveDetector {
       this.currRange = { start: Date.now(), end: -1 }
     } else {
       if (currRange) {
-        currRange.end = Date.now()
+        currRange.end = Date.now() - this.options.inactiveThresh
         activeRanges.push(currRange)
       }
     }

@@ -22,7 +22,7 @@ See demo [here](./example).
 ```typescript
 import { AD, USER_STATE, ActiveRange } from 'active-detector'
 const ad = new AD({
-  inactiveThresh: 5000 // time of determined as the threshold of inactive, default is 5000ms
+  inactiveThresh: 5000 // time of determined as the threshold of inactive, default is 30000ms
 })
 ad.getState() // 'active'
 ad.ActiveRange() // [start: 1572160131022, end: 1572160127925 ]
