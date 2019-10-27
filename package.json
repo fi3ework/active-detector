@@ -2,13 +2,17 @@
   "name": "active-detector",
   "version": "1.0.0",
   "license": "MIT",
-  "author": "weiwei",
+  "author": "fi3ework",
   "main": "dist/index.js",
   "module": "dist/active-detector.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fi3ework/active-detector.git"
+  },
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
