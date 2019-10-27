@@ -1,27 +1,45 @@
-# TSDX Bootstrap
+# active-detector
 
-This project was bootstrapped with [TSDX](https://github.com/jaredpalmer/tsdx).
+![](https://img.shields.io/npm/v/active-detector)
+![](https://img.shields.io/bundlephobia/minzip/active-detector)
 
-## Local Development
+## Install
 
-Below is a list of commands you will probably find useful.
+```zsh
+yarn add active-detector
+```
 
-### `npm start` or `yarn start`
+## Usage
 
-Runs the project in development/watch mode. Your project will be rebuilt upon changes. TSDX has a special logger for you convenience. Error messages are pretty printed and formatted for compatibility VS Code's Problems tab.
+### Quick Start
 
-<img src="https://user-images.githubusercontent.com/4060187/52168303-574d3a00-26f6-11e9-9f3b-71dbec9ebfcb.gif" width="600" />
+```typescript
+import { AD, USER_STATE, ActiveRange } from 'active-detector'
+const ad = new AD()
+ad.getState() // 'active'
+ad.ActiveRange() // [start: 1572160131022, end: 1572160127925 ]
+ad.on('active', console.log('turn to active'))
+ad.on('inactive', console.log('turn to inactive'))
+```
 
-Your library will be rebuilt if you make edits.
+### add listener
 
-### `npm run build` or `yarn build`
+active-detector use [tiny-emitter](https://github.com/scottcorgan/tiny-emitter#readme) as the callback controller.
 
-Bundles the package to the `dist` folder.
-The package is optimized and bundled with Rollup into multiple formats (CommonJS, UMD, and ES Module).
+```typescript
+on: (action: USER_STATE, cb: Function) => void
+off: (action: USER_STATE, cb: Function) => void
+once: (action: USER_STATE, cb: Function) => void
+```
 
-<img src="https://user-images.githubusercontent.com/4060187/52168322-a98e5b00-26f6-11e9-8cf6-222d716b75ef.gif" width="600" />
+### get current state
 
-### `npm test` or `yarn test`
+```typescript
+getState: () => USER_STATE;
+```
 
-Runs the test watcher (Jest) in an interactive mode.
-By default, runs tests related to files changed since the last commit.
+### get active ranges
+
+```typescript
+getRanges: () => ActiveRange[];
+```
