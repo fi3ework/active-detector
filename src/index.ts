@@ -110,14 +110,19 @@ export default class ActiveDetector {
 
   // wrap ee
   public on = (action: USER_STATE, cb: Function) => {
-    this.ee.on(action, cb)
+    this.ee.on(action, cb, this)
+  }
+
+  public once = (action: USER_STATE, cb: Function) => {
+    this.ee.once(action, cb, this)
   }
 
   public off = (action: USER_STATE, cb: Function) => {
     this.ee.off(action, cb)
   }
 
-  public once = (action: USER_STATE, cb: Function) => {
-    this.ee.once(action, cb)
+  public clearRanges = () => {
+    this.currRange = null
+    this.activeRanges = []
   }
 }

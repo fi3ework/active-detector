@@ -11,11 +11,12 @@ Detect whether browser user's active state.
 yarn add active-detector
 ```
 
-## Usage
-
 ## Example
 
 See demo [here](./example).
+Run `yarn && yarn start` and watch the console log.
+
+## Usage
 
 ### Quick Start
 
@@ -64,4 +65,12 @@ Get current active time ranges. The start/end time is an Unix timestamp.
 
 ```typescript
 getRanges: () => ActiveRange[]; // {start: number, end: number}[]
+```
+
+### Clear Time Ranges
+
+Clear time ranges immediately, it might be used in case you have reported number of ranges by time.
+
+```typescript
+clearRanges: () => void; // {start: number, end: number}[]
 ```
