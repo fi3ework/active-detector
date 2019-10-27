@@ -1,6 +1,6 @@
 # active-detector
 
-Detect whether browser user's active state.
+Detect whether browser user is still active.
 
 ![](https://img.shields.io/npm/v/active-detector)
 ![](https://img.shields.io/bundlephobia/minzip/active-detector)
