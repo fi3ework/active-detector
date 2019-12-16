@@ -7,16 +7,21 @@ const ad = new ActiveDetector({
   inactiveThresh: 2000,
 })
 
-const logActive = () => {
-  console.log('[state: active]')
+const logTurnActive = () => {
+  console.log('[state turn to active]')
 }
 
-const logInactive = () => {
-  console.log('[state: inactive]')
+const logTurnInactive = () => {
+  console.log('[state turn to inactive]')
   console.log(ad.getRanges())
 }
 
-ad.on('active', logActive)
-ad.on('inactive', logInactive)
+const logTick = state => {
+  console.log('[tick]', state)
+}
+
+ad.on('active', logTurnActive)
+ad.on('inactive', logTurnInactive)
+ad.on('tick', logTick)
 
 ReactDOM.render(<></>, document.getElementById('root'))

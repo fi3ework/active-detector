@@ -13,8 +13,7 @@ yarn add active-detector
 
 ## Example
 
-See demo [here](./example).
-Run `yarn && yarn start` and watch the console log.
+Demo [here](./example). Excute `yarn && yarn start` and watch the log in console.
 
 ## Usage
 
@@ -22,13 +21,12 @@ Run `yarn && yarn start` and watch the console log.
 
 ```typescript
 import { AD, USER_STATE, ActiveRange } from 'active-detector'
-const ad = new AD({
-  inactiveThresh: 5000 // time of determined as the threshold of inactive, default is 30000ms
-})
+const ad = new AD()
 ad.getState() // 'active'
 ad.ActiveRange() // [start: 1572160131022, end: 1572160127925 ]
-ad.on('active', console.log('turn to active'))
-ad.on('inactive', console.log('turn to inactive'))
+ad.on('active', () => console.log('turn to active')) // excute when user turn to be active
+ad.on('inactive', () => console.log('turn to inactive')) // excute when user turn to be inactive
+ad.on('tick', (state) => console.log(`tick tick, user is ${state} now.`)) // tick users's state
 ```
 
 ### Options
@@ -36,7 +34,10 @@ ad.on('inactive', console.log('turn to inactive'))
 Configuration of active-detector.
 
 ```typescript
-constructor(options?: Partial<ActiveDetectorOptions>);
+const ad = new ActiveDetector({
+  inactiveThresh: 10000, // optional, time of determined as the threshold of inactive, default is 30000ms
+  throttleTimeout: 500, // optional, in terms of performance, all users activations that be listened is throttled, default is 900ms
+})
 ```
 
 ### Add Listener
@@ -46,9 +47,14 @@ The callbacks will be invoked when user from inactive to active, or from active 
 active-detector use [tiny-emitter](https://github.com/scottcorgan/tiny-emitter#readme) as the callback controller.
 
 ```typescript
-on: (action: USER_STATE, cb: Function) => void
-off: (action: USER_STATE, cb: Function) => void
-once: (action: USER_STATE, cb: Function) => void
+on: (action: LISTENABLE_ACTION, cb: (ActiveRange[])=> any) => void
+off: (action: LISTENABLE_ACTION, cb: (ActiveRange[])=> any) => void
+once: (action: LISTENABLE_ACTION, cb: (ActiveRange[])=> any) => void
+
+type LISTENABLE_ACTION =
+| 'active' // invoked when user turn to be active from inactive
+| 'inactive' // invoked when user turn to be inactive from active
+| 'tick' // // tick users's state every ${inactiveThresh} inverval
 ```
 
 ### Get Current State
