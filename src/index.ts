@@ -81,7 +81,7 @@ export default class ActiveDetector {
   }
 
   private activeHandler = () => {
-    this.latestActiveTime = Date.now() - this.options.throttleTimeout
+    this.latestActiveTime = Date.now()
     const prevState = this.state
     if (prevState === 'inactive') {
       this.toggleState('active')
