@@ -4,7 +4,7 @@ import { throttle } from './utils'
 
 export type USER_STATE = 'active' | 'inactive'
 export type ACTIVE_TICK = 'tick'
-export type LISTENABLE_ACTION = USER_STATE | USER_STATE
+export type LISTENABLE_ACTION = USER_STATE | ACTIVE_TICK
 
 const USER_EVENTS = [
   'click',
