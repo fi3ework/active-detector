@@ -1,4 +1,7 @@
 import { TinyEmitter } from 'tiny-emitter'
+
+import { debounce } from './utils'
+
 export type USER_STATE = 'active' | 'inactive'
 
 const USER_EVENTS = [
@@ -16,7 +19,13 @@ const USER_EVENTS = [
 
 interface ActiveDetectorOptions {
   /**
-   * time of determined as the threshold of inactive
+   * in terms of performance, all users activations that be listened is debounced.
+   * default debounce timeout is 800ms.
+   */
+  debounceTimeout: number
+  /**
+   * time of determined as the threshold of inactive.
+   * default inactive thresh timeout is 30s.
    */
   inactiveThresh: number
 }
@@ -27,6 +36,7 @@ export interface ActiveRange {
 }
 
 const DEFAULT_OPTIONS: ActiveDetectorOptions = {
+  debounceTimeout: 900,
   inactiveThresh: 30000,
 }
 
@@ -46,6 +56,7 @@ export default class ActiveDetector {
 
   private overrideOptions = (options: Partial<ActiveDetectorOptions>) => {
     this.options.inactiveThresh = options.inactiveThresh || this.options.inactiveThresh
+    this.options.debounceTimeout = options.debounceTimeout || this.options.debounceTimeout
   }
 
   private initListenVisibilityChange() {
@@ -56,7 +67,7 @@ export default class ActiveDetector {
   }
 
   private initListener() {
-    const handler = () => this.stateController('active' as USER_STATE)
+    const handler = debounce(() => this.stateController('active' as USER_STATE), this.options.debounceTimeout)
     USER_EVENTS.forEach(key => document.addEventListener(key, handler))
   }
 
