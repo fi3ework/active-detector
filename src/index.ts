@@ -101,7 +101,7 @@ export default class ActiveDetector {
     }
 
     this.state = action
-    this.ee.emit(action)
+    this.ee.emit(this.state)
   }
 
   public getState = (): USER_STATE => {
@@ -113,15 +113,15 @@ export default class ActiveDetector {
   }
 
   // wrap ee
-  public on = (action: LISTENABLE_ACTION, cb: Function) => {
+  public on = (action: LISTENABLE_ACTION, cb: (state: USER_STATE) => any) => {
     this.ee.on(action, cb, this)
   }
 
-  public once = (action: LISTENABLE_ACTION, cb: Function) => {
+  public once = (action: LISTENABLE_ACTION, cb: (state: USER_STATE) => any) => {
     this.ee.once(action, cb, this)
   }
 
-  public off = (action: LISTENABLE_ACTION, cb: Function) => {
+  public off = (action: LISTENABLE_ACTION, cb: (state: USER_STATE) => any) => {
     this.ee.off(action, cb)
   }
 
